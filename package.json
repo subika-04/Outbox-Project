@@ -1,0 +1,14 @@
+{
+  "name": "reachinbox-scheduler-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "backend:install": "npm --prefix backend install --legacy-peer-deps",
+    "frontend:install": "npm --prefix frontend install",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:build": "npm --prefix backend run build",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:build": "npm --prefix frontend run build",
+    "install-all": "npm run backend:install && npm run frontend:install"
+  }
+}
