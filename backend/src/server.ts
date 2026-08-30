@@ -25,6 +25,7 @@ app.use(helmet());
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
+  'https://reachinbox-one-rho.vercel.app',
   ...env.FRONTEND_URL.split(',').map((o) => o.trim()).filter(Boolean),
 ];
 app.use(
