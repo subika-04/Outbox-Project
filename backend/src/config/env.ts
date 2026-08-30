@@ -9,6 +9,9 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number().default(9000),
 
+  // Deployed frontend origin(s), comma-separated (e.g. https://your-app.vercel.app)
+  FRONTEND_URL: z.string().default('http://localhost:5173'),
+
   // Database (MySQL)
   MYSQL_HOST: z.string().default('127.0.0.1'),
   MYSQL_PORT: z.coerce.number().default(3306),
@@ -32,10 +35,10 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   GOOGLE_CALLBACK_URL: z.string(),
 
-  // Slack OAuth
-  SLACK_CLIENT_ID: z.string(),
-  SLACK_CLIENT_SECRET: z.string(),
-  SLACK_REDIRECT_URI: z.string(),
+  // Slack OAuth (optional — leave unset to deploy without Slack integration)
+  SLACK_CLIENT_ID: z.string().optional().default(''),
+  SLACK_CLIENT_SECRET: z.string().optional().default(''),
+  SLACK_REDIRECT_URI: z.string().optional().default(''),
 
   // Session & Security
   SESSION_SECRET: z.string(),

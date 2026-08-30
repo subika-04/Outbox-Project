@@ -22,9 +22,14 @@ const PORT = env.PORT || 9000;
 
 // Security & utility middlewares
 app.use(helmet());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  ...env.FRONTEND_URL.split(',').map((o) => o.trim()).filter(Boolean),
+];
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -48,7 +53,9 @@ app.use(
     cookie: {
       secure: env.NODE_ENV === 'production',
       httpOnly: true,
-      sameSite: 'lax',
+      // Cross-site cookie (Vercel frontend + Render backend are different domains) needs
+      // sameSite:'none', which browsers only accept when the cookie is also 'secure'.
+      sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
   })
